@@ -40,8 +40,7 @@ void MarkovGenerator::generateNewText() {
             next.pop_front();
             next.push_back(suff);
             countWords++;
-        }
-        else {
+        } else {
             break;
         }
     }

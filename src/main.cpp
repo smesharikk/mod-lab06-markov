@@ -3,7 +3,7 @@
 #include "textgen.h"
 
 int main() {
-	MarkovGenerator g = MarkovGenerator(2, 1000);
-	g.readFromFile("input.txt");
-	g.generateNewText();
+    MarkovGenerator g = MarkovGenerator(2, 1000);
+    g.readFromFile("input.txt");
+    g.generateNewText();
 }
