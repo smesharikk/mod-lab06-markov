@@ -2,8 +2,7 @@
 #include <gtest/gtest.h>
 #include "textgen.h"
 
-std::string readFile()
-{
+std::string readFile() {
     std::string line;
     std::string text = "";
     std::ifstream in("test.txt");
@@ -16,8 +15,7 @@ std::string readFile()
     return text;
 }
 
-TEST(test1, prefixNumber)
-{
+TEST(test1, prefixNumber) {
     std::string initial = readFile();
     Gen g = Gen(initial, 2, 1000);
     std::string answer = g.getText();
@@ -26,8 +24,7 @@ TEST(test1, prefixNumber)
     EXPECT_EQ(2, count);
 }
 
-TEST(test2, prefixSuffix)
-{
+TEST(test2, prefixSuffix) {
     std::string initial = readFile();
     Gen g = Gen(initial, 2, 1000);
     std::map<std::deque<std::string>, std::vector<std::string> >::iterator it;
@@ -37,8 +34,7 @@ TEST(test2, prefixSuffix)
     EXPECT_EQ("the", suff);
 }
 
-TEST(test3, oneSuffix)
-{
+TEST(test3, oneSuffix) {
     std::string initial = readFile();
     Gen g = Gen(initial, 2, 1000);
     std::map<std::deque<std::string>, std::vector<std::string> >::iterator it;
@@ -48,8 +44,7 @@ TEST(test3, oneSuffix)
     EXPECT_EQ("Жил", suff);
 }
 
-TEST(test4, chooseSuffix)
-{
+TEST(test4, chooseSuffix) {
     std::string initial = readFile();
     Gen g = Gen(initial, 2, 1000);
     std::map<std::deque<std::string>, std::vector<std::string> >::iterator it;
@@ -59,8 +54,7 @@ TEST(test4, chooseSuffix)
     EXPECT_TRUE(suff == "старик" || suff == "своею" || suff == "землянке");
 }
 
-TEST(test5, lengthText)
-{
+TEST(test5, lengthText) {
     std::string initial = "";
     Gen g = Gen(initial, 2, 1000);
 
