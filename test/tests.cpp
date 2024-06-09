@@ -5,7 +5,8 @@
 std::string readFile() {
     std::string line;
     std::string text = "";
-    std::ifstream in("test.txt");
+    std::ifstream in;
+    in.open("test.txt");
     if (in.is_open()) {
         while (getline(in, line)) {
             text += line + ' ';
