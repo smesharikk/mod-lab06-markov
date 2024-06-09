@@ -1,6 +1,8 @@
 // Copyright 2021 GHA Test Team
 #include <gtest/gtest.h>
 #include "textgen.h"
+#include <iostream>
+#include <fstream>
 
 std::string readFile() {
     std::string line;
@@ -56,49 +58,39 @@ TEST(test4, chooseSuffix) {
 }
 
 TEST(test5, lengthText) {
-    std::string initial = "";
-    Gen g = Gen(initial, 2, 1000);
+    Gen g = Gen("", 2, 1000);
 
     std::string str;
 
-    g.prefix.push_back("I");
-    g.prefix.push_back("love");
+    g.words.push_back("I");
+    g.words.push_back("love");
 
-    g.statetab[g.prefix].push_back("flowers");
-    g.prefix.pop_front();
-    g.prefix.push_back("flowers");
+    g.words.front();
+    g.words.push_back("birds");
 
-    g.statetab[g.prefix].push_back("I");
-    g.prefix.pop_front();
-    g.prefix.push_back("I");
+    g.words.front();
+    g.words.push_back("I");
 
-    g.statetab[g.prefix].push_back("love");
-    g.prefix.pop_front();
-    g.prefix.push_back("love");
+    g.words.front();
+    g.words.push_back("love");
 
-    g.statetab[g.prefix].push_back("books");
-    g.prefix.pop_front();
-    g.prefix.push_back("books");
+    g.words.front();
+    g.words.push_back("letters");
 
-    g.statetab[g.prefix].push_back("I");
-    g.prefix.pop_front();
-    g.prefix.push_back("I");
+    g.words.front();
+    g.words.push_back("I");
 
-    g.statetab[g.prefix].push_back("love");
-    g.prefix.pop_front();
-    g.prefix.push_back("love");
+    g.words.front();
+    g.words.push_back("love");
 
-    g.statetab[g.prefix].push_back("cats");
-    g.prefix.pop_front();
-    g.prefix.push_back("cats");
+    g.words.front();
+    g.words.push_back("dogs");
 
-    g.statetab[g.prefix].push_back("I");
-    g.prefix.pop_front();
-    g.prefix.push_back("I");
+    g.words.front();
+    g.words.push_back("I");
 
-    g.statetab[g.prefix].push_back("love");
-    g.prefix.pop_front();
-    g.prefix.push_back("love");
+    g.words.front();
+    g.words.push_back("love");
 
     g.getText();
 

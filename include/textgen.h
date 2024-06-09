@@ -13,6 +13,7 @@ class Gen {
  public:
     std::vector<std::string> words;
     typedef std::deque<std::string> prefix;
+    prefix start;
     std::map<prefix, std::vector<std::string> > statetab;
     Gen(std::string arr, int val1, int val2);
     std::string getText();
