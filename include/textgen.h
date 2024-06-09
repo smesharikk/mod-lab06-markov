@@ -1,23 +1,26 @@
-// Copyright 2024 unn
-#ifndef INCLUDE_TEXTGEN_H_
-#define INCLUDE_TEXTGEN_H_
-#include <string>
-#include <deque>
+// Copyright 2023 UNN-IASR
+
+#pragma once
+
+#include <iostream>
+#include <fstream>
 #include <vector>
 #include <map>
-class Gen {
- private:
-    std::string data;
-    int NPREF;
-    int MAXGEN;
- public:
-    std::vector<std::string> words;
-    typedef std::deque<std::string> prefix;
-    prefix start;
-    std::map<prefix, std::vector<std::string> > statetab;
-    Gen(std::string arr, int val1, int val2);
-    std::string getText();
-    Gen(std::map<prefix, std::vector<std::string> > val,
-        std::vector<std::string> words, int val1, int val2);
+#include <deque>
+#include <string>
+#include <ctime>
+
+class MarkovGenerator {
+public:
+	typedef std::deque<std::string> prefix;
+	std::map<prefix, std::vector<std::string>> statetab;
+	std::deque<std::string> start;
+	std::deque<std::string> next;
+	int NPREF;
+	int MAXGEN;
+	int countWords = 0;
+
+	MarkovGenerator(int kolvo, int size);
+	void readFromFile(std::string path);
+	void generateNewText();
 };
-#endif // INCLUDE_TEXTGEN_H_

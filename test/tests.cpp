@@ -1,100 +1,96 @@
 // Copyright 2021 GHA Test Team
-#include <gtest/gtest.h>
-#include "textgen.h"
-#include <iostream>
-#include <fstream>
 
-std::string readFile() {
-    std::string line;
-    std::string text = "";
-    std::ifstream in;
-    in.open("test.txt");
-    if (in.is_open()) {
-        while (getline(in, line)) {
-            text += line + ' ';
-        }
-    }
-    in.close();
-    return text;
-}
+#include <gtest/gtest.h>
+
+#include "textgen.h"
 
 TEST(test1, prefixNumber) {
-    std::string initial = readFile();
-    Gen g = Gen(initial, 2, 1000);
-    std::string answer = g.getText();
-    int count = g.start.size();
+	MarkovGenerator g = MarkovGenerator(2, 1000);
+	g.readFromFile("input.txt");
+	int count = g.start.size();
 
-    EXPECT_EQ(2, count);
+	EXPECT_EQ(2, count);
 }
 
 TEST(test2, prefixSuffix) {
-    std::string initial = readFile();
-    Gen g = Gen(initial, 2, 1000);
-    std::map<std::deque<std::string>, std::vector<std::string> >::iterator it;
-    it = g.statetab.find(g.start);
-    std::string suff = it->second[0];
+	MarkovGenerator g = MarkovGenerator(2, 1000);
+	g.readFromFile("input.txt");
+	std::map<std::deque<std::string>, std::vector<std::string> >::iterator it;
+	it = g.statetab.find(g.start);
+	std::string suff = it->second[0];
 
-    EXPECT_EQ("the", suff);
+	EXPECT_EQ("the", suff);
 }
 
 TEST(test3, oneSuffix) {
-    std::string initial = readFile();
-    Gen g = Gen(initial, 2, 1000);
-    std::map<std::deque<std::string>, std::vector<std::string> >::iterator it;
-    it = g.statetab.find(g.start);
-    std::string suff = it->second[rand() % (it->second).size()];
+	MarkovGenerator g = MarkovGenerator(2, 1000);
+	g.readFromFile("test.txt");
 
-    EXPECT_EQ("Жил", suff);
+	std::map<std::deque<std::string>, std::vector<std::string> >::iterator it;
+	it = g.statetab.find(g.start);
+	std::string suff = it->second[rand() % (it->second).size()];
+
+	EXPECT_EQ("gold", suff);
 }
 
 TEST(test4, chooseSuffix) {
-    std::string initial = readFile();
-    Gen g = Gen(initial, 2, 1000);
-    std::map<std::deque<std::string>, std::vector<std::string> >::iterator it;
-    it = g.statetab.find(g.start);
-    std::string suff = it->second[rand() % (it->second).size()];
+	MarkovGenerator g = MarkovGenerator(1, 1000);
+	g.readFromFile("test.txt");
+	std::map<std::deque<std::string>, std::vector<std::string> >::iterator it;
+	it = g.statetab.find(g.start);
+	std::string suff = it->second[rand() % (it->second).size()];
 
-    EXPECT_TRUE(suff == "старик" || suff == "своею" || suff == "землянке");
+	EXPECT_TRUE(suff == "watch" || suff == "bracelet" || suff == "ring");
 }
 
 TEST(test5, lengthText) {
-    Gen g = Gen("", 2, 1000);
+	MarkovGenerator g = MarkovGenerator(2, 33);
 
-    std::string str;
+	std::string str;
 
-    g.words.push_back("I");
-    g.words.push_back("love");
+	g.next.push_back("I");
+	g.next.push_back("love");
 
-    g.words.front();
-    g.words.push_back("birds");
+	g.start = g.next;
+	g.statetab[g.next].push_back("flowers");
+	g.next.pop_front();
+	g.next.push_back("flowers");
 
-    g.words.front();
-    g.words.push_back("I");
+	g.statetab[g.next].push_back("I");
+	g.next.pop_front();
+	g.next.push_back("I");
 
-    g.words.front();
-    g.words.push_back("love");
+	g.statetab[g.next].push_back("love");
+	g.next.pop_front();
+	g.next.push_back("love");
 
-    g.words.front();
-    g.words.push_back("letters");
+	g.statetab[g.next].push_back("books");
+	g.next.pop_front();
+	g.next.push_back("books");
 
-    g.words.front();
-    g.words.push_back("I");
+	g.statetab[g.next].push_back("I");
+	g.next.pop_front();
+	g.next.push_back("I");
 
-    g.words.front();
-    g.words.push_back("love");
+	g.statetab[g.next].push_back("love");
+	g.next.pop_front();
+	g.next.push_back("love");
 
-    g.words.front();
-    g.words.push_back("dogs");
+	g.statetab[g.next].push_back("cats");
+	g.next.pop_front();
+	g.next.push_back("cats");
 
-    g.words.front();
-    g.words.push_back("I");
+	g.statetab[g.next].push_back("I");
+	g.next.pop_front();
+	g.next.push_back("I");
 
-    g.words.front();
-    g.words.push_back("love");
+	g.statetab[g.next].push_back("love");
+	g.next.pop_front();
+	g.next.push_back("love");
 
-    g.getText();
+	g.generateNewText();
 
-    int count = g.words.size();
+	int count = g.countWords;
 
-    EXPECT_EQ(33, count);
+	EXPECT_EQ(33, count);
 }
