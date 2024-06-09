@@ -10,8 +10,8 @@
 #include <string>
 #include <ctime>
 
-class MarkovGenerator { 
-public: 
+class MarkovGenerator {
+ public:
     typedef std::deque<std::string> prefix;
     std::map<prefix, std::vector<std::string>> statetab;
     std::deque<std::string> start;
