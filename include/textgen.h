@@ -11,16 +11,16 @@
 #include <vector>
 
 class MarkovGenerator {
-public:
-	typedef std::deque<std::string> prefix;
-	std::map<prefix, std::vector<std::string>> statetab;
-	std::deque<std::string> start;
-	std::deque<std::string> next;
-	int NPREF;
-	int MAXGEN;
-	int countWords = 0;
+ public:
+  typedef std::deque<std::string> prefix;
+  std::map<prefix, std::vector<std::string>> statetab;
+  std::deque<std::string> start;
+  std::deque<std::string> next;
+  int NPREF;
+  int MAXGEN;
+  int countWords = 0;
 
-	MarkovGenerator(int kolvo, int size);
-	void readFromFile(std::string path);
-	void generateNewText();
+  MarkovGenerator(int kolvo, int size);
+  void readFromFile(std::string path);
+  void generateNewText();
 };
